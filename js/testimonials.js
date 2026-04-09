@@ -5,7 +5,7 @@ function displayTestimonials() {
         .then(data => {
             const container = document.getElementById('testimonials-grid');
             if (!container) {
-                console.error('testimonials-grid element not found!');
+               
                 return;
             }
             container.innerHTML = '';
