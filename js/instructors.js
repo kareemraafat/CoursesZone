@@ -4,7 +4,7 @@ function displayInstructors() {
         .then(response => response.json())
         .then(data => {
             const instructorsGrid = document.getElementById('instructors-grid');
-            console.log('Element found:', instructorsGrid); // هتأكد إن العنصر موجود
+       
             
             if (!instructorsGrid) {
                 console.error('instructors-grid element not found!');
@@ -12,8 +12,7 @@ function displayInstructors() {
             }
             
             instructorsGrid.innerHTML = '';
-            console.log('Data received:', data); // هتأكد إن البيانات وصلت
-
+            
             const isArabic = document.body.classList.contains('rtl') || 
                             document.documentElement.dir === 'rtl';
 
@@ -40,7 +39,7 @@ function displayInstructors() {
                 instructorsGrid.appendChild(card);
             });
             
-            console.log('Cards added:', instructorsGrid.children.length);
+            
         })
         .catch(error => console.error('Error loading instructors:', error));
 }
