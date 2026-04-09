@@ -4,8 +4,15 @@ function displayInstructors() {
         .then(response => response.json())
         .then(data => {
             const instructorsGrid = document.getElementById('instructors-grid');
-            if (!instructorsGrid) return;
+            console.log('Element found:', instructorsGrid); // هتأكد إن العنصر موجود
+            
+            if (!instructorsGrid) {
+                console.error('instructors-grid element not found!');
+                return;
+            }
+            
             instructorsGrid.innerHTML = '';
+            console.log('Data received:', data); // هتأكد إن البيانات وصلت
 
             const isArabic = document.body.classList.contains('rtl') || 
                             document.documentElement.dir === 'rtl';
@@ -15,23 +22,25 @@ function displayInstructors() {
                 const title = isArabic ? instructor.title_ar : instructor.title_en;
                 const bio = isArabic ? instructor.bio_ar : instructor.bio_en;
                 
-                const instructorCard = document.createElement('div');
-                instructorCard.className = 'instructor-card';
+                const card = document.createElement('div');
+                card.className = 'instructor-card';
                 
-                instructorCard.innerHTML = `
+                card.innerHTML = `
                     <img class="instructor-image" src="${instructor.image}" alt="${name}">
                     <h3 class="instructor-name">${name}</h3>
                     <div class="instructor-title">${title}</div>
                     <p class="instructor-bio">${bio}</p>
                     <div class="social-links">
-                        ${instructor.facebook ? `<a href="${instructor.facebook}" target="_blank"><i class="fab fa-facebook-f"></i></a>` : ''}
-                        ${instructor.instagram ? `<a href="${instructor.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>` : ''}
-                        ${instructor.tiktok ? `<a href="${instructor.tiktok}" target="_blank"><i class="fab fa-tiktok"></i></a>` : ''}
+                        <a href="${instructor.facebook}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="${instructor.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="${instructor.tiktok}" target="_blank"><i class="fab fa-tiktok"></i></a>
                     </div>
                 `;
                 
-                instructorsGrid.appendChild(instructorCard);
+                instructorsGrid.appendChild(card);
             });
+            
+            console.log('Cards added:', instructorsGrid.children.length);
         })
         .catch(error => console.error('Error loading instructors:', error));
 }
