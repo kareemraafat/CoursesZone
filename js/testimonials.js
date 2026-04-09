@@ -3,49 +3,43 @@ function displayTestimonials() {
     fetch('/data/testimonials.json')
         .then(response => response.json())
         .then(data => {
-            const testimonialsGrid = document.getElementById('testimonials-grid');
-            if (!testimonialsGrid) return;
-            testimonialsGrid.innerHTML = '';
+            const container = document.getElementById('testimonials-grid');
+            if (!container) {
+                console.error('testimonials-grid element not found!');
+                return;
+            }
+            container.innerHTML = '';
 
             const isArabic = document.body.classList.contains('rtl') || 
                             document.documentElement.dir === 'rtl';
 
-            data.testimonials.forEach(testimonial => {
-                const name = isArabic ? testimonial.name_ar : testimonial.name_en;
-                const title = isArabic ? testimonial.title_ar : testimonial.title_en;
-                const text = isArabic ? testimonial.text_ar : testimonial.text_en;
+            data.testimonials.forEach(t => {
+                const name = isArabic ? t.name_ar : t.name_en;
+                const title = isArabic ? t.title_ar : t.title_en;
+                const text = isArabic ? t.text_ar : t.text_en;
                 
                 let stars = '';
                 for (let i = 1; i <= 5; i++) {
-                    if (i <= testimonial.rating) {
-                        stars += '<i class="fas fa-star"></i>';
-                    } else {
-                        stars += '<i class="far fa-star"></i>';
-                    }
+                    stars += i <= t.rating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
                 }
                 
                 const card = document.createElement('div');
                 card.className = 'testimonial-card';
-                
                 card.innerHTML = `
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-right"></i>
-                    </div>
+                    <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
                     <div class="rating">${stars}</div>
                     <p class="testimonial-text">"${text}"</p>
                     <div class="student-info">
-                        <img class="student-avatar" src="${testimonial.image}" alt="${name}">
+                        <img class="student-avatar" src="${t.image}" alt="${name}">
                         <div class="student-details">
                             <h4>${name}</h4>
                             <span>${title}</span>
                         </div>
                     </div>
                 `;
-                
-                testimonialsGrid.appendChild(card);
+                container.appendChild(card);
             });
         })
-        .catch(error => console.error('Error loading testimonials:', error));
+        .catch(error => console.error('Error:', error));
 }
-
 displayTestimonials();
