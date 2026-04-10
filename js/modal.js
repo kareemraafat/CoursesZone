@@ -1,25 +1,13 @@
+// modal.js
+const modal = document.getElementById('contactModal');
+const openButtons = document.querySelectorAll('.open-modal');
+const closeBtn = document.querySelector('.close-modal');
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const modal = document.getElementById('contactModal');
-        const openBtns = document.querySelectorAll('.open-modal');
-        const closeBtn = document.querySelector('.close-modal');
+openButtons.forEach(btn => {
+    btn.addEventListener('click', () => modal.style.display = 'flex');
+});
 
-        openBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                console.log('Button clicked');
-                modal.style.display = 'flex';
-            });
-        });
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', function() {
-                modal.style.display = 'none';
-            });
-        }
-
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-    });
+closeBtn.addEventListener('click', () => modal.style.display = 'none');
+window.addEventListener('click', (e) => {
+    if (e.target === modal) modal.style.display = 'none';
+});
