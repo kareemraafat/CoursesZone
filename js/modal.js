@@ -4,9 +4,6 @@
         const openBtns = document.querySelectorAll('.open-modal');
         const closeBtn = document.querySelector('.close-modal');
 
-        console.log('Modal found:', modal);
-        console.log('Open buttons found:', openBtns.length);
-
         openBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 console.log('Button clicked');
