@@ -451,35 +451,33 @@
 
 
 	<script>
-    (function() {
-        const modal = document.getElementById('contactModal');
-        const openBtns = document.querySelectorAll('.open-modal');
-        const closeBtn = document.querySelector('.close-modal');
-
-        if (!modal) {
-            console.error('Modal not found!');
-            return;
-        }
-
-        openBtns.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
+    document.addEventListener('click', function(e) {
+        // لو الضغط حصل على أي عنصر عنده class open-modal أو جواه
+        const button = e.target.closest('.open-modal');
+        if (button) {
+            const modal = document.getElementById('contactModal');
+            if (modal) {
                 modal.style.display = 'flex';
-            });
-        });
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', function() {
-                modal.style.display = 'none';
-            });
+                console.log('Modal opened via delegation');
+            }
         }
+    });
 
+    // إغلاق المودال
+    const modal = document.getElementById('contactModal');
+    if (modal) {
         window.addEventListener('click', function(e) {
             if (e.target === modal) {
                 modal.style.display = 'none';
             }
         });
-    })();
+        const closeBtn = document.querySelector('.close-modal');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        }
+    }
 </script>
 </body>
 </html>
