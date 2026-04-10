@@ -448,35 +448,8 @@
 <script type="text/javascript" src="js/testimonials.js"></script>
 <script type="text/javascript" src="js/branches.js"></script>
 <script type="text/javascript" src="js/language.js"></script>
+<script type="text/javascript" src="js/modal.js"></script>
 
 
-	<script>
-    document.addEventListener('click', function(e) {
-        // لو الضغط حصل على أي عنصر عنده class open-modal أو جواه
-        const button = e.target.closest('.open-modal');
-        if (button) {
-            const modal = document.getElementById('contactModal');
-            if (modal) {
-                modal.style.display = 'flex';
-            }
-        }
-    });
-
-    // إغلاق المودال
-    const modal = document.getElementById('contactModal');
-    if (modal) {
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-        const closeBtn = document.querySelector('.close-modal');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', function() {
-                modal.style.display = 'none';
-            });
-        }
-    }
-</script>
 </body>
 </html>
