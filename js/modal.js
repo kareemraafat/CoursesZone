@@ -1,13 +1,25 @@
-// modal.js
-const modal = document.getElementById('contactModal');
-const openButtons = document.querySelectorAll('.open-modal');
-const closeBtn = document.querySelector('.close-modal');
+document.addEventListener('click', function(e) {
+	/* Event Delegaton */
+        const button = e.target.closest('.open-modal');
+        if (button) {
+            const modal = document.getElementById('contactModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+        }
+    });
 
-openButtons.forEach(btn => {
-    btn.addEventListener('click', () => modal.style.display = 'flex');
-});
-
-closeBtn.addEventListener('click', () => modal.style.display = 'none');
-window.addEventListener('click', (e) => {
-    if (e.target === modal) modal.style.display = 'none';
-});
+    const modal = document.getElementById('contactModal');
+    if (modal) {
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        const closeBtn = document.querySelector('.close-modal');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        }
+    }
