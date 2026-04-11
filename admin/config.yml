@@ -1,0 +1,75 @@
+backend:
+  name: github
+  repo: KareemRaafat2017/courses-zone
+  branch: main
+  base_url: https://courses-oauth.kareemraafat2017.workers.dev
+  auth_endpoint: /auth
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  # ========== COURSES COLLECTION ==========
+  - name: "courses"
+    label: "Courses"
+    folder: "data/courses.json"
+    create: true
+    fields:
+      - {label: "ID", name: "id", widget: "number"}
+      - {label: "Title (EN)", name: "title_en", widget: "string"}
+      - {label: "Title (AR)", name: "title_ar", widget: "string"}
+      - {label: "Description (EN)", name: "description_en", widget: "text"}
+      - {label: "Description (AR)", name: "description_ar", widget: "text"}
+      - {label: "Price", name: "price", widget: "number"}
+      - {label: "Level (EN)", name: "level_en", widget: "string"}
+      - {label: "Level (AR)", name: "level_ar", widget: "string"}
+      - {label: "Weeks", name: "weeks", widget: "number"}
+      - {label: "Image", name: "image", widget: "image"}
+
+  # ========== INSTRUCTORS COLLECTION ==========
+  - name: "instructors"
+    label: "Instructors"
+    folder: "data/instructors.json"
+    create: true
+    fields:
+      - {label: "ID", name: "id", widget: "number"}
+      - {label: "Name (EN)", name: "name_en", widget: "string"}
+      - {label: "Name (AR)", name: "name_ar", widget: "string"}
+      - {label: "Title (EN)", name: "title_en", widget: "string"}
+      - {label: "Title (AR)", name: "title_ar", widget: "string"}
+      - {label: "Bio (EN)", name: "bio_en", widget: "text"}
+      - {label: "Bio (AR)", name: "bio_ar", widget: "text"}
+      - {label: "Image", name: "image", widget: "image"}
+      - {label: "Facebook", name: "facebook", widget: "string", required: false}
+      - {label: "Instagram", name: "instagram", widget: "string", required: false}
+      - {label: "TikTok", name: "tiktok", widget: "string", required: false}
+
+  # ========== TESTIMONIALS COLLECTION ==========
+  - name: "testimonials"
+    label: "Testimonials"
+    folder: "data/testimonials.json"
+    create: true
+    fields:
+      - {label: "ID", name: "id", widget: "number"}
+      - {label: "Name (EN)", name: "name_en", widget: "string"}
+      - {label: "Name (AR)", name: "name_ar", widget: "string"}
+      - {label: "Title (EN)", name: "title_en", widget: "string"}
+      - {label: "Title (AR)", name: "title_ar", widget: "string"}
+      - {label: "Text (EN)", name: "text_en", widget: "text"}
+      - {label: "Text (AR)", name: "text_ar", widget: "text"}
+      - {label: "Rating", name: "rating", widget: "number", min: 1, max: 5}
+      - {label: "Image", name: "image", widget: "image"}
+
+  # ========== BRANCHES COLLECTION ==========
+  - name: "branches"
+    label: "Branches"
+    folder: "data/branches.json"
+    create: true
+    fields:
+      - {label: "ID", name: "id", widget: "number"}
+      - {label: "Name (EN)", name: "name_en", widget: "string"}
+      - {label: "Name (AR)", name: "name_ar", widget: "string"}
+      - {label: "Address (EN)", name: "address_en", widget: "text"}
+      - {label: "Address (AR)", name: "address_ar", widget: "text"}
+      - {label: "Phone", name: "phone", widget: "string"}
+      - {label: "WhatsApp", name: "whatsapp", widget: "string"}
