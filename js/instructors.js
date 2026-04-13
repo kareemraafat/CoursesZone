@@ -1,47 +1,48 @@
-// instructors.js
-function displayInstructors() {
-    fetch('/data/instructors.json')
-        .then(response => response.json())
-        .then(data => {
-            const instructorsGrid = document.getElementById('instructors-grid');
-       
+// instructors.js - Fetch from Admin Panel API
+async function displayInstructors() {
+    try {
+        const response = await fetch('https://courses-admin.kareemraafat2017.workers.dev/api/instructors');
+        const instructors = await response.json();
+        
+        const instructorsGrid = document.querySelector('.instructors-grid');
+        if (!instructorsGrid) return;
+        
+        instructorsGrid.innerHTML = '';
+        
+        const isArabic = document.body.classList.contains('rtl') || 
+                        document.documentElement.dir === 'rtl';
+        
+        if (instructors.length === 0) {
+            instructorsGrid.innerHTML = '<p>No instructors yet. Add some from the admin panel.</p>';
+            return;
+        }
+        
+        instructors.forEach(instructor => {
+            const name = isArabic ? (instructor.name_ar || instructor.name_en) : (instructor.name_en || 'Instructor');
+            const title = isArabic ? (instructor.title_ar || instructor.title_en) : (instructor.title_en || 'Title');
+            const bio = isArabic ? (instructor.bio_ar || instructor.bio_en || 'Experienced instructor') : (instructor.bio_en || 'Experienced instructor');
+            const imageUrl = instructor.image || `https://placehold.co/400x400/8E11B2/white?text=${encodeURIComponent(name)}`;
             
-            if (!instructorsGrid) {
-                console.error('instructors-grid element not found!');
-                return;
-            }
+            const instructorCard = document.createElement('div');
+            instructorCard.className = 'instructor-card';
             
-            instructorsGrid.innerHTML = '';
+            instructorCard.innerHTML = `
+                <img class="instructor-image" src="${imageUrl}" alt="${name}">
+                <h3 class="instructor-name">${name}</h3>
+                <div class="instructor-title">${title}</div>
+                <p class="instructor-bio">${bio}</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            `;
             
-            const isArabic = document.body.classList.contains('rtl') || 
-                            document.documentElement.dir === 'rtl';
-
-            data.instructors.forEach(instructor => {
-                const name = isArabic ? instructor.name_ar : instructor.name_en;
-                const title = isArabic ? instructor.title_ar : instructor.title_en;
-                const bio = isArabic ? instructor.bio_ar : instructor.bio_en;
-                
-                const card = document.createElement('div');
-                card.className = 'instructor-card';
-                
-                card.innerHTML = `
-                    <img class="instructor-image" src="${instructor.image}" alt="${name}">
-                    <h3 class="instructor-name">${name}</h3>
-                    <div class="instructor-title">${title}</div>
-                    <p class="instructor-bio">${bio}</p>
-                    <div class="social-links">
-                        <a href="${instructor.facebook}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="${instructor.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="${instructor.tiktok}" target="_blank"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                `;
-                
-                instructorsGrid.appendChild(card);
-            });
-            
-            
-        })
-        .catch(error => console.error('Error loading instructors:', error));
+            instructorsGrid.appendChild(instructorCard);
+        });
+    } catch (error) {
+        console.error('Error loading instructors:', error);
+    }
 }
 
 displayInstructors();
