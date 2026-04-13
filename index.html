@@ -450,6 +450,33 @@
 <script type="text/javascript" src="js/language.js"></script>
 <script type="text/javascript" src="js/modal.js" defer></script>
 
-
+<script>
+  // Fetch courses from Admin Panel API
+  async function loadCourses() {
+    try {
+      const response = await fetch('https://courses-admin.kareemraafat2017.workers.dev/api/courses');
+      const courses = await response.json();
+      
+      const container = document.getElementById('courses-container');
+      if (!container) return;
+      
+      if (courses.length === 0) {
+        container.innerHTML = '<p>No courses yet. Add some from the admin panel.</p>';
+        return;
+      }
+      
+      container.innerHTML = courses.map(course => `
+        <div class="course-card">
+          <h3>${course.title}</h3>
+          <p>Price: $${course.price}</p>
+        </div>
+      `).join('');
+    } catch (error) {
+      console.error('Error loading courses:', error);
+    }
+  }
+  
+  loadCourses();
+</script>
 </body>
 </html>
