@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Courses Admin</title>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 0 auto; padding: 20px; }
+        input, button { width: 100%; padding: 10px; margin: 5px 0; }
+        button { background: blue; color: white; border: none; cursor: pointer; }
+        .course { border: 1px solid #ddd; padding: 10px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
+        .delete { background: red; width: auto; padding: 5px 10px; margin: 0; }
+    </style>
+</head>
+<body>
+    <h1>Courses Admin</h1>
+    <input type="text" id="title" placeholder="Course Title">
+    <input type="number" id="price" placeholder="Price">
+    <button id="addBtn">Add Course</button>
+    <h2>All Courses</h2>
+    <div id="list"></div>
+
+    <script>
+        const API_URL = 'https://courses-admin.kareemraafat2017.workers.dev/api/courses';
+
+        async function loadCourses() {
+            const response = await fetch(API_URL);
+            const courses = await response.json();
+            const container = document.getElementById('list');
+            
+            if (courses.length === 0) {
+                container.innerHTML = '<p>No courses yet</p>';
+                return;
+            }
+            
+            let html = '';
+            for (let i = 0; i < courses.length; i++) {
+                const c = courses[i];
+                html += '<div class="course">';
+                html += '<span>' + c.title_en + ' - $' + c.price + '</span>';
+                html += '<button class="delete" onclick="deleteCourse(' + c.id + ')">Delete</button>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        async function deleteCourse(id) {
+            if (confirm('Delete this course?')) {
+                await fetch(API_URL + '/' + id, { method: 'DELETE' });
+                loadCourses();
+            }
+        }
+
+        document.getElementById('addBtn').onclick = async function() {
+            const title = document.getElementById('title').value;
+            const price = document.getElementById('price').value;
+            
+            if (!title || !price) {
+                alert('Please fill all fields');
+                return;
+            }
+            
+            await fetch(API_URL, {
+                method: 'POST',
+                body: JSON.stringify({ title_en: title, price: parseInt(price) }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            
+            document.getElementById('title').value = '';
+            document.getElementById('price').value = '';
+            loadCourses();
+        };
+
+        loadCourses();
+    </script>
+</body>
+</html>
