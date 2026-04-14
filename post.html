@@ -4,78 +4,35 @@
     <title>Blog Post</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="blog.css">
-    <style>
-        .post-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .post-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .post-meta {
-            color: #888;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        .post-image {
-            width: 100%;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .post-content {
-            line-height: 1.8;
-            color: #444;
-        }
-        .post-content h2, .post-content h3 {
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        .post-content p {
-            margin-bottom: 15px;
-        }
-        .post-content img {
-            max-width: 100%;
-            border-radius: 8px;
-        }
-        .post-content iframe {
-            max-width: 100%;
-            border-radius: 8px;
-        }
-        .back-button {
-            display: inline-block;
-            margin-top: 30px;
-            background: #2563eb;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-        }
-        .back-button:hover {
-            background: #1d4ed8;
-        }
-        .loading {
-            text-align: center;
-            padding: 50px;
-        }
-        @media (max-width: 768px) {
-            .post-container {
-                padding: 20px;
-            }
-            .post-title {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+     <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/blog.css">
+
 </head>
 <body>
+    <nav>
+        <div id="logo">Courses Zone</div>
+        <ul id="menu">
+                <!-- English Links -->
+            <li class="english-content"><a href="/index.html#home">Home</a></li>
+            <li class="english-content"><a href="blog.html" class="active">blog</a></li>
+            <li class="english-content"><a href="/index.html#courses">Courses</a></li>
+            <li class="english-content"><a href="/index.html#why-choose">About</a></li>
+            <li class="english-content"><a href="/index.html#instructors">Team</a></li>
+            <li class="english-content"><a href="/index.html#contact">Contact</a></li>
+            
+            <!-- Arabic Links -->
+            <li class="arabic-content" style="display: none;"><a href="/index.html#home">الرئيسية</a></li>
+            <li class="arabic-content" style="display: none;"><a href="blog.html" class="active">المدونة</a></li>
+            <li class="arabic-content" style="display: none;"><a href="/index.html#courses">الكورسات</a></li>
+            <li class="arabic-content" style="display: none;"><a href="/index.html#why-choose">من نحن</a></li>
+            <li class="arabic-content" style="display: none;"><a href="/index.html#instructors">الفريق</a></li>
+            <li class="arabic-content" style="display: none;"><a href="/index.html#contact">اتصل بنا</a></li>
+        </ul>
+        <i class="fa-solid fa-bars" id="menu-bar"></i>
+    </nav>
     <div class="blog-container">
         <div id="postContainer" class="post-container">
             <div class="loading">Loading article...</div>
@@ -84,6 +41,57 @@
             <a href="blog.html" class="back-button">← Back to Blog</a>
         </div>
     </div>
+
+        <!-- Footer Section -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <!-- English Footer -->
+            <div class="english-content">
+                <div class="footer-logo">
+                    <h3>COURSES ZONE</h3>
+                </div>
+                <p class="footer-description">
+                    Empowering learners worldwide with cutting-edge courses, expert instructors, and a thriving global community.
+                </p>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Courses Zone. All Rights Reserved.</p>
+                </div>
+            </div>
+            
+            <!-- Arabic Footer -->
+            <div class="arabic-content" style="display: none;">
+                <div class="footer-logo">
+                    <h3>كورسز زون</h3>
+                </div>
+                <p class="footer-description">
+                    نمكن المتعلمين حول العالم من خلال دورات متطورة، خبراء في التدريس، ومجتمع عالمي مزدهر.
+                </p>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 كورسز زون. جميع الحقوق محفوظة.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Floating Language Button -->
+<button id="lang-toggle-float" class="lang-float">
+    <span class="lang-text"> AR</span>
+</button>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/201234567890?text=Hello%20Courses%20Zone%2C%20I%27m%20interested%20in%20your%20courses" 
+   class="whatsapp-float" 
+   target="_blank">
+   <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Back to Top Button -->
+<button id="backToTop" class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
 
     <script>
         const API_URL = 'https://blog-worker.kareemraafat2017.workers.dev/api/blog';
