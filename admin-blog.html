@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Admin Panel</title>
+    <meta charset="utf-8">
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial; max-width: 1000px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .form-section { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        input, textarea, select { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px; }
+        button { background: #2563eb; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .delete-btn { background: #dc2626; }
+        .edit-btn { background: #f59e0b; }
+        .post-item { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; }
+        .ql-editor { min-height: 200px; }
+    </style>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+</head>
+<body>
+    <h1>📝 Blog Admin Panel</h1>
+    
+    <div class="form-section">
+        <h2 id="formTitle">Add New Post</h2>
+        <input type="hidden" id="postId">
+        <input type="text" id="title_en" placeholder="Title (English)">
+        <input type="text" id="title_ar" placeholder="Title (Arabic)">
+        <input type="text" id="author" placeholder="Author Name">
+        <select id="category">
+            <option value="">Select Category</option>
+            <option value="news">News</option>
+            <option value="tips">Tips</option>
+            <option value="tutorials">Tutorials</option>
+        </select>
+        <input type="text" id="image" placeholder="Cover Image URL">
+        <input type="text" id="video" placeholder="YouTube Video URL (optional)">
+        <input type="text" id="file" placeholder="Mediafire Download Link (optional)">
+        
+        <label>Content (English)</label>
+        <div id="editor_en" style="min-height: 200px;"></div>
+        
+        <label>Content (Arabic)</label>
+        <div id="editor_ar" style="min-height: 200px;"></div>
+        
+        <button id="submitBtn">➕ Add Post</button>
+        <button id="cancelBtn" style="display:none; background:#6b7280;">Cancel</button>
+    </div>
+    
+    <h2>📖 All Posts</h2>
+    <div id="postsList"></div>
+
+    <script>
+        const API_URL = 'https://blog-worker.kareemraafat2017.workers.dev/api/blog';
+        
+        var quillEn = new Quill('#editor_en', { theme: 'snow' });
+        var quillAr = new Quill('#editor_ar', { theme: 'snow' });
+        
+        async function loadPosts() {
+            const res = await fetch(API_URL);
+            const posts = await res.json();
+            const container = document.getElementById('postsList');
+            
+            if (posts.length === 0) {
+                container.innerHTML = '<p>No posts yet</p>';
+                return;
+            }
+            
+            let html = '';
+            for (let i = 0; i < posts.length; i++) {
+                const p = posts[i];
+                html += '<div class="post-item">';
+                html += '<div><strong>' + p.title_en + '</strong><br><small>' + p.date + ' | ' + p.author + '</small></div>';
+                html += '<div>';
+                html += '<button class="edit-btn" onclick="editPost(' + p.id + ')">Edit</button>';
+                html += '<button class="delete-btn" onclick="deletePost(' + p.id + ')">Delete</button>';
+                html += '</div></div>';
+            }
+            container.innerHTML = html;
+        }
+        
+        async function deletePost(id) {
+            if (confirm('Delete this post?')) {
+                await fetch(API_URL + '/' + id, { method: 'DELETE' });
+                loadPosts();
+            }
+        }
+        
+        async function editPost(id) {
+            const res = await fetch(API_URL + '/' + id);
+            const post = await res.json();
+            
+            document.getElementById('postId').value = post.id;
+            document.getElementById('title_en').value = post.title_en;
+            document.getElementById('title_ar').value = post.title_ar;
+            document.getElementById('author').value = post.author;
+            document.getElementById('category').value = post.category;
+            document.getElementById('image').value = post.image;
+            document.getElementById('video').value = post.video;
+            document.getElementById('file').value = post.file;
+            quillEn.root.innerHTML = post.content_en || '';
+            quillAr.root.innerHTML = post.content_ar || '';
+            document.getElementById('formTitle').innerText = 'Edit Post';
+            document.getElementById('submitBtn').innerHTML = '💾 Update Post';
+            document.getElementById('cancelBtn').style.display = 'inline-block';
+        }
+        
+        document.getElementById('cancelBtn').onclick = () => {
+            document.getElementById('postId').value = '';
+            document.getElementById('title_en').value = '';
+            document.getElementById('title_ar').value = '';
+            document.getElementById('author').value = '';
+            document.getElementById('category').value = '';
+            document.getElementById('image').value = '';
+            document.getElementById('video').value = '';
+            document.getElementById('file').value = '';
+            quillEn.root.innerHTML = '';
+            quillAr.root.innerHTML = '';
+            document.getElementById('formTitle').innerText = 'Add New Post';
+            document.getElementById('submitBtn').innerHTML = '➕ Add Post';
+            document.getElementById('cancelBtn').style.display = 'none';
+        };
+        
+        document.getElementById('submitBtn').onclick = async () => {
+            const id = document.getElementById('postId').value;
+            const postData = {
+                title_en: document.getElementById('title_en').value,
+                title_ar: document.getElementById('title_ar').value,
+                author: document.getElementById('author').value,
+                category: document.getElementById('category').value,
+                image: document.getElementById('image').value,
+                video: document.getElementById('video').value,
+                file: document.getElementById('file').value,
+                content_en: quillEn.root.innerHTML,
+                content_ar: quillAr.root.innerHTML
+            };
+            
+            const method = id ? 'PUT' : 'POST';
+            const url = id ? API_URL + '/' + id : API_URL;
+            
+            await fetch(url, {
+                method: method,
+                body: JSON.stringify(postData),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            
+            document.getElementById('cancelBtn').click();
+            loadPosts();
+        };
+        
+        loadPosts();
+    </script>
+</body>
+</html>
