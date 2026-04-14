@@ -1,0 +1,69 @@
+{
+  "instructors": [
+    {
+      "id": 1,
+      "name_en": "Dr. Sarah Johnson",
+      "name_ar": "د. سارة جونسون",
+      "title_en": "Senior English Instructor",
+      "title_ar": "كبير معلمي اللغة الإنجليزية",
+      "bio_en": "PhD in English Literature with 15+ years of teaching experience. TEFL certified and passionate about language education.",
+      "bio_ar": "دكتوراه في الأدب الإنجليزي مع أكثر من 15 سنة خبرة في التدريس. حاصلة على شهادة TEFL وشغوفة بتعليم اللغة.",
+      "image": "https://placehold.co/400x400/8E11B2/white?text=Sarah",
+      "facebook": "#",
+      "instagram": "#",
+      "tiktok": "#"
+    },
+    {
+      "id": 2,
+      "name_en": "Michael Chen",
+      "name_ar": "مايكل تشين",
+      "title_en": "Digital Marketing Specialist",
+      "title_ar": "أخصائي تسويق رقمي",
+      "bio_en": "Former Google marketing lead with 10+ years in SEO, social media, and content strategy. Helped 100+ businesses grow online.",
+      "bio_ar": "قائد تسويق سابق في جوجل مع أكثر من 10 سنوات في تحسين محركات البحث، السوشيال ميديا، واستراتيجية المحتوى. ساعد أكثر من 100 شركة في النمو عبر الإنترنت.",
+      "image": "https://placehold.co/400x400/8E11B2/white?text=Michael",
+      "facebook": "#",
+      "instagram": "#",
+      "tiktok": "#"
+    },
+    {
+      "id": 3,
+      "name_en": "Prof. James Wilson",
+      "name_ar": "أ. جيمس ويلسون",
+      "title_en": "Programming & AI Instructor",
+      "title_ar": "معلم برمجة وذكاء اصطناعي",
+      "bio_en": "Full-stack developer and AI researcher with 12+ years of experience. Passionate about teaching code and machine learning.",
+      "bio_ar": "مطور Full-stack وباحث في الذكاء الاصطناعي بخبرة تزيد عن 12 سنة. شغوف بتعليم البرمجة وتعلم الآلة.",
+      "image": "https://placehold.co/400x400/8E11B2/white?text=James",
+      "facebook": "#",
+      "instagram": "#",
+      "tiktok": "#"
+    },
+    {
+      "id": 4,
+      "name_en": "Dr. Amira Hassan",
+      "name_ar": "د. أميرة حسن",
+      "title_en": "HR & Leadership Coach",
+      "title_ar": "مدربة موارد بشرية وقيادة",
+      "bio_en": "HR consultant with 20+ years of experience. Certified coach who helped 5000+ professionals advance their careers.",
+      "bio_ar": "استشارية موارد بشرية بخبرة تزيد عن 20 سنة. مدربة معتمدة ساعدت أكثر من 5000 محترف في تطوير مسيرتهم المهنية.",
+      "image": "https://placehold.co/400x400/8E11B2/white?text=Amira",
+      "facebook": "#",
+      "instagram": "#",
+      "tiktok": "#"
+    },
+    {
+      "id": 5,
+      "name_en": "Omar El-Sayed",
+      "name_ar": "عمر السيد",
+      "title_en": "Graphic Design Instructor",
+      "title_ar": "معلم تصميم جرافيك",
+      "bio_en": "Creative director with 15+ years of experience in branding and visual design. Worked with top international agencies.",
+      "bio_ar": "مدير إبداعي بخبرة تزيد عن 15 عاماً في العلامات التجارية والتصميم البصري. عمل مع كبرى الوكالات العالمية.",
+      "image": "https://placehold.co/400x400/8E11B2/white?text=Omar",
+      "facebook": "#",
+      "instagram": "#",
+      "tiktok": "#"
+    }
+  ]
+}
