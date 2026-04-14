@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Post - Courses Zone</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/blog.css">
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav>
+        <div id="logo">COURSES ZONE</div>
+        <ul id="menu">
+            <!-- English Links -->
+            <li class="english-content"><a href="/index.html#home">Home</a></li>
+            <li class="english-content"><a href="blog.html" class="active">Blog</a></li>
+            <li class="english-content"><a href="/index.html#courses">Courses</a></li>
+            <li class="english-content"><a href="/index.html#why-choose">About</a></li>
+            <li class="english-content"><a href="/index.html#instructors">Team</a></li>
+            <li class="english-content"><a href="/index.html#contact">Contact</a></li>
+            
+            <!-- Arabic Links -->
+            <li class="arabic-content" style="display: none;"><a href="/index.html#home">الرئيسية</a></li>
+            <li class="arabic-content" style="display: none;"><a href="blog.html" class="active">المدونة</a></li>
+            <li class="arabic-content" style="display: none;"><a href="/index.html#courses">الكورسات</a></li>
+            <li class="arabic-content" style="display: none;"><a href="/index.html#why-choose">من نحن</a></li>
+            <li class="arabic-content" style="display: none;"><a href="/index.html#instructors">الفريق</a></li>
+            <li class="arabic-content" style="display: none;"><a href="/index.html#contact">اتصل بنا</a></li>
+        </ul>
+        <i class="fa-solid fa-bars" id="menu-bar"></i>
+    </nav>
+
+    <!-- ========== POST CONTENT ========== -->
+    <div class="blog-container">
+        <div id="postContainer" class="post-container">
+            <div class="loading">Loading article...</div>
+        </div>
+        
+        <!-- Back Button -->
+        <div style="text-align: center; margin: 30px auto; width: 150px;">
+            <a href="blog.html" class="back-button english-content">← Back to Blog</a>
+            <a href="blog.html" class="back-button arabic-content" style="display: none;">→ العودة إلى المدونة</a>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="english-content">
+                    <div class="footer-logo"><h3>COURSES ZONE</h3></div>
+                    <p class="footer-description">Empowering learners worldwide with cutting-edge courses, expert instructors, and a thriving global community.</p>
+                    <div class="footer-bottom"><p>&copy; 2025 Courses Zone. All Rights Reserved.</p></div>
+                </div>
+                <div class="arabic-content" style="display: none;">
+                    <div class="footer-logo"><h3>كورسز زون</h3></div>
+                    <p class="footer-description">نمكن المتعلمين حول العالم من خلال دورات متطورة، خبراء في التدريس، ومجتمع عالمي مزدهر.</p>
+                    <div class="footer-bottom"><p>&copy; 2025 كورسز زون. جميع الحقوق محفوظة.</p></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== FLOATING BUTTONS ========== -->
+    <button id="lang-toggle-float" class="lang-float">🇪🇬 عربي</button>
+    
+    <a href="https://wa.me/201234567890?text=Hello%20Courses%20Zone%2C%20I%27m%20interested%20in%20your%20courses" 
+       class="whatsapp-float" target="_blank">
+       <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <button id="backToTop" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="/js/main.js"></script>
+    <script src="/js/language.js"></script>
+    
+    <script>
+        const API_URL = 'https://blog-worker.kareemraafat2017.workers.dev/api/blog';
+        
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+        
+        async function loadPost() {
+            const postId = getQueryParam('id');
+            if (!postId) {
+                document.getElementById('postContainer').innerHTML = '<div class="loading">No article selected</div>';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/${postId}`);
+                const post = await response.json();
+                
+                if (!post || !post.id) {
+                    document.getElementById('postContainer').innerHTML = '<div class="loading">Article not found</div>';
+                    return;
+                }
+                
+                // Detect current language
+                const isArabic = document.body.classList.contains('rtl') || 
+                                document.documentElement.dir === 'rtl';
+                
+                // Choose content based on language
+                const title = isArabic && post.title_ar ? post.title_ar : post.title_en;
+                const content = isArabic && post.content_ar ? post.content_ar : post.content_en;
+                const author = post.author || (isArabic ? 'مدير' : 'Admin');
+                const category = post.category || (isArabic ? 'عام' : 'General');
+                
+                let html = `
+                    <h1 class="post-title">${title}</h1>
+                    <div class="post-meta">
+                        📅 ${post.date} | ✍️ ${author} | 📂 ${category}
+                    </div>
+                `;
+                
+                if (post.image) {
+                    html += `<img class="post-image" src="${post.image}" alt="${title}">`;
+                }
+                
+                if (post.video) {
+                    let videoUrl = post.video;
+                    if (videoUrl.includes('youtube.com/watch?v=')) {
+                        videoUrl = videoUrl.replace('watch?v=', 'embed/');
+                    } else if (videoUrl.includes('youtu.be/')) {
+                        const videoId = videoUrl.split('youtu.be/')[1];
+                        videoUrl = `https://www.youtube.com/embed/${videoId}`;
+                    }
+                    html += `<div style="margin: 20px 0;"><iframe width="100%" height="400" src="${videoUrl}" frameborder="0" allowfullscreen></iframe></div>`;
+                }
+                
+                html += `<div class="post-content">${content || (isArabic ? 'لا يوجد محتوى' : 'No content available')}</div>`;
+                
+                if (post.file) {
+                    html += `<div style="margin-top: 30px; padding: 20px; background: #f0f0f0; border-radius: 8px; text-align: center;">
+                        <a href="${post.file}" target="_blank" style="background: #2563eb; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none;">📥 ${isArabic ? 'تحميل الملفات' : 'Download Files'}</a>
+                    </div>`;
+                }
+                
+                document.getElementById('postContainer').innerHTML = html;
+                
+                // Apply direction based on language
+                if (isArabic) {
+                    document.getElementById('postContainer').style.direction = 'rtl';
+                    document.getElementById('postContainer').style.textAlign = 'right';
+                } else {
+                    document.getElementById('postContainer').style.direction = 'ltr';
+                    document.getElementById('postContainer').style.textAlign = 'left';
+                }
+                
+            } catch (error) {
+                console.error('Error loading post:', error);
+                document.getElementById('postContainer').innerHTML = '<div class="loading">Error loading article</div>';
+            }
+        }
+        
+        // Reload post when language changes
+        function initLanguageListener() {
+            const langButton = document.getElementById('lang-toggle-float');
+            if (langButton) {
+                langButton.addEventListener('click', () => {
+                    setTimeout(loadPost, 100);
+                });
+            }
+        }
+        
+        loadPost();
+        initLanguageListener();
+    </script>
+</body>
+</html>
