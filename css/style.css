@@ -1,33 +1,25 @@
 
 
   :root {
-    /* ========== COLORS ========== */
-    --primary: #8E11B2;
-    --primary-light: #D6B7D5;
-    --primary-dark: #6B0E8A;
-    --text-dark: #2A1B2F;
-    --text-light: #666666;
-    --bg-light: #F9F9F9;
-    --bg-white: #FFFFFF;
-    --border: #E5E5E5;
-    
-    /* ========== TYPOGRAPHY ========== */
-    --font-main: 'Cairo', sans-serif;
-    --font-heading: 'Cairo', sans-serif;
-    
-    /* ========== SHADOWS ========== */
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-    --shadow-md: 0 5px 20px rgba(0,0,0,0.1);
-    --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
-    
-    /* ========== BORDER RADIUS ========== */
-    --radius-sm: 8px;
-    --radius-md: 16px;
-    --radius-lg: 24px;
-    
-    /* ========== TRANSITIONS ========== */
-    --transition: all 0.3s ease;
+  --soft-linen: #EAE9DD;
+  --royal-orchid: #8E11B2;
+  --pink-orchid: #D6B7D5;
+  --text-dark: #2A1B2F;  
+  --accent-orange: #E67E22;
+
+/* SCSS Gradient */
+--gradient-top: linear-gradient(0deg, #EAE9DDff, #8E11B2ff, #9219B3ff, #8A00B1ff, #D6B7D5ff);
+--gradient-right: linear-gradient(90deg, #EAE9DDff, #8E11B2ff, #9219B3ff, #8A00B1ff, #D6B7D5ff);
+--gradient-bottom: linear-gradient(180deg, #EAE9DDff, #8E11B2ff, #9219B3ff, #8A00B1ff, #D6B7D5ff);
+--gradient-left: linear-gradient(270deg, #EAE9DDff, #8E11B2ff, #9219B3ff, #8A00B1ff, #D6B7D5ff);
+--gradient-top-right: linear-gradient(45deg, #EAE9DDff, #8E11B2ff, #9219B3ff, #8A00B1ff, #D6B7D5ff);
+--gradient-bottom-right: linear-gradient(135deg, #EAE9DDff, #8E11B2ff, #9219B3ff, #8A00B1ff, #D6B7D5ff);
+--gradient-top-left: linear-gradient(225deg, #EAE9DDff, #8E11B2ff, #9219B3ff, #8A00B1ff, #D6B7D5ff);
+--gradient-bottom-left: linear-gradient(315deg, #EAE9DDff, #8E11B2ff, #9219B3ff, #8A00B1ff, #D6B7D5ff);
+--gradient-radial: radial-gradient(#EAE9DDff, #8E11B2ff, #9219B3ff, #8A00B1ff, #D6B7D5ff);
 }
+
+
 
 /* ********** General Styling *********** */
 
